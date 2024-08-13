@@ -1,5 +1,6 @@
 {
   "name": "tag",
+  "homepage": "https://taglocklar.github.io/tag",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,8 +12,6 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://taglocklar.github.io",
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
