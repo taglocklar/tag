@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.89b14284.css",
-    "main.js": "/static/js/main.21d8b0c3.js",
-    "static/js/453.a78ffef3.chunk.js": "/static/js/453.a78ffef3.chunk.js",
-    "static/media/tag.png": "/static/media/tag.31712b81569e53856063.png",
-    "static/media/socallogo.jpg": "/static/media/socallogo.d05edf92217ab60eccba.jpg",
-    "static/media/tapinlogo.png": "/static/media/tapinlogo.ebda05766846dc7d5195.png",
-    "index.html": "/index.html",
-    "main.89b14284.css.map": "/static/css/main.89b14284.css.map",
-    "main.21d8b0c3.js.map": "/static/js/main.21d8b0c3.js.map",
-    "453.a78ffef3.chunk.js.map": "/static/js/453.a78ffef3.chunk.js.map"
+    "main.css": "/tag/static/css/main.89b14284.css",
+    "main.js": "/tag/static/js/main.d9140931.js",
+    "static/js/453.a78ffef3.chunk.js": "/tag/static/js/453.a78ffef3.chunk.js",
+    "static/media/tag.png": "/tag/static/media/tag.31712b81569e53856063.png",
+    "static/media/socallogo.jpg": "/tag/static/media/socallogo.d05edf92217ab60eccba.jpg",
+    "static/media/tapinlogo.png": "/tag/static/media/tapinlogo.ebda05766846dc7d5195.png",
+    "index.html": "/tag/index.html",
+    "main.89b14284.css.map": "/tag/static/css/main.89b14284.css.map",
+    "main.d9140931.js.map": "/tag/static/js/main.d9140931.js.map",
+    "453.a78ffef3.chunk.js.map": "/tag/static/js/453.a78ffef3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.89b14284.css",
-    "static/js/main.21d8b0c3.js"
+    "static/js/main.d9140931.js"
   ]
 }
