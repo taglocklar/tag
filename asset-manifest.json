@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/tag/static/css/main.69ed2047.css",
-    "main.js": "/tag/static/js/main.3994deb8.js",
+    "main.css": "/tag/static/css/main.9b4b3ed2.css",
+    "main.js": "/tag/static/js/main.71d42517.js",
     "static/js/453.a78ffef3.chunk.js": "/tag/static/js/453.a78ffef3.chunk.js",
     "static/media/tag.png": "/tag/static/media/tag.2ec03fad506b02e74227.png",
     "static/media/gearroom.png": "/tag/static/media/gearroom.fa2a2c8c3b9e71ecd597.png",
@@ -9,12 +9,12 @@
     "static/media/mfj.png": "/tag/static/media/mfj.85b1f2b180b6d1652806.png",
     "static/media/tapinlogo.png": "/tag/static/media/tapinlogo.ebda05766846dc7d5195.png",
     "index.html": "/tag/index.html",
-    "main.69ed2047.css.map": "/tag/static/css/main.69ed2047.css.map",
-    "main.3994deb8.js.map": "/tag/static/js/main.3994deb8.js.map",
+    "main.9b4b3ed2.css.map": "/tag/static/css/main.9b4b3ed2.css.map",
+    "main.71d42517.js.map": "/tag/static/js/main.71d42517.js.map",
     "453.a78ffef3.chunk.js.map": "/tag/static/js/453.a78ffef3.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.69ed2047.css",
-    "static/js/main.3994deb8.js"
+    "static/css/main.9b4b3ed2.css",
+    "static/js/main.71d42517.js"
   ]
 }
