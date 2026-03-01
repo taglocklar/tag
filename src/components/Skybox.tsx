@@ -1,15 +1,27 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
-import skyboxImage from '../assets/skybox_360_clouds_mountains.jpg';
+import skyboxImage from '../assets/skybox_360_v2.jpg';
+
+interface SkyboxProps {
+  onReady?: () => void;
+}
 
 /** Rotating sphere with the equirectangular panorama mapped to its inner surface */
-function PanoramaSphere() {
+function PanoramaSphere({ onReady }: { onReady?: () => void }) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const texture = useTexture(skyboxImage);
+  const notified = useRef(false);
 
   texture.colorSpace = THREE.SRGBColorSpace;
+
+  useEffect(() => {
+    if (texture && !notified.current) {
+      notified.current = true;
+      onReady?.();
+    }
+  }, [texture, onReady]);
 
   useFrame((_state, delta) => {
     if (meshRef.current) {
@@ -25,24 +37,20 @@ function PanoramaSphere() {
   );
 }
 
-export default function Skybox() {
+export default function Skybox({ onReady }: SkyboxProps) {
   return (
     <Canvas
       className="skybox-canvas"
-      camera={{ fov: 100, near: 0.1, far: 1000, position: [0, 0, 0.1] }}
+      camera={{ fov: 80, near: 0.1, far: 1000, position: [0, 0, 0.1] }}
       gl={{ antialias: true, alpha: false, powerPreference: 'default' }}
       onCreated={({ gl }) => {
-        // Handle context loss gracefully — auto-restore
         const canvas = gl.domElement;
         canvas.addEventListener('webglcontextlost', (e) => {
           e.preventDefault();
         });
-        canvas.addEventListener('webglcontextrestored', () => {
-          gl.compile;
-        });
       }}
     >
-      <PanoramaSphere />
+      <PanoramaSphere onReady={onReady} />
     </Canvas>
   );
 }

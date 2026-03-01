@@ -1,11 +1,10 @@
-import { Suspense } from 'react';
+import { Suspense, useState, useCallback } from 'react';
 import metaLogo from './assets/meta-icon.webp';
 import servyLogo from './assets/servy.png';
 import tapinLogo from './assets/tapinlogo.png';
 import gearroomLogo from './assets/gearroom.png';
 import mfjLogo from './assets/mfj.png';
 import socalLogo from './assets/socallogo.jpg';
-import linkedinIcon from './assets/linkedin.png';
 import Skybox from './components/Skybox';
 
 const currentCompany = {
@@ -23,19 +22,34 @@ const previousCompanies = [
 ];
 
 export default function App() {
+  const [loaded, setLoaded] = useState(false);
+
+  const handleReady = useCallback(() => {
+    setLoaded(true);
+  }, []);
+
   return (
     <div className="page">
+      {/* Loading screen — fades out once skybox is ready */}
+      <div className={`loading-screen ${loaded ? 'loaded' : ''}`}>
+        <div className="loader">
+          <div className="loader-ring" />
+        </div>
+      </div>
+
       {/* 3D rotating skybox background */}
       <Suspense fallback={null}>
-        <Skybox />
+        <Skybox onReady={handleReady} />
       </Suspense>
 
-      {/* Glass tile overlay */}
-      <div className="glass-tile">
+      {/* Glass tile overlay — SparkJS-inspired reveal */}
+      <div className={`glass-tile ${loaded ? 'revealed' : ''}`}>
         <main className="hero">
-          <h1 className="name">Tag Locklar</h1>
+          <a href="https://www.linkedin.com/in/taglocklar/" target="_blank" rel="noopener noreferrer" className="name-link">
+            <h1 className="name reveal-item" style={{ '--reveal-i': 0 } as React.CSSProperties}>Tag Locklar</h1>
+          </a>
 
-          <div className="currently">
+          <div className="currently reveal-item" style={{ '--reveal-i': 1 } as React.CSSProperties}>
             <span className="currently-text">currently at</span>
             <a href={currentCompany.url} target="_blank" rel="noopener noreferrer">
               <img
@@ -46,10 +60,10 @@ export default function App() {
             </a>
           </div>
 
-          <p className="prev-label">previously</p>
-          <div className="prev-logos">
-            {previousCompanies.map((c) => (
-              <a key={c.name} href={c.url} target="_blank" rel="noopener noreferrer">
+          <p className="prev-label reveal-item" style={{ '--reveal-i': 2 } as React.CSSProperties}>previously</p>
+          <div className="prev-logos reveal-item" style={{ '--reveal-i': 3 } as React.CSSProperties}>
+            {previousCompanies.map((c, i) => (
+              <a key={c.name} href={c.url} target="_blank" rel="noopener noreferrer" className="prev-logo-link" style={{ '--logo-i': i } as React.CSSProperties}>
                 <img
                   src={c.logo}
                   alt={c.name}
@@ -59,21 +73,10 @@ export default function App() {
               </a>
             ))}
           </div>
-
-          <div className="contact-row">
-            <a href="mailto:tlocklar3@gmail.com" className="contact-link" title="Email">
-              <svg className="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2" />
-                <path d="M22 4L12 13L2 4" />
-              </svg>
-              <span>tlocklar3@gmail.com</span>
-            </a>
-            <a href="https://www.linkedin.com/in/taglocklar/" target="_blank" rel="noopener noreferrer" className="contact-link" title="LinkedIn">
-              <img src={linkedinIcon} alt="LinkedIn" className="contact-icon-img" />
-              <span>linkedin</span>
-            </a>
-          </div>
         </main>
+
+        {/* SparkJS-inspired light sweep overlay */}
+        <div className="reveal-sweep" />
       </div>
     </div>
   );

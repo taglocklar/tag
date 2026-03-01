@@ -42,6 +42,44 @@ body {
   z-index: 0;
 }
 
+/* ===== LOADING SCREEN ===== */
+
+.loading-screen {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0f1b2d;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loading-screen.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loader-ring {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(168, 216, 255, 0.6);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* ===== LIQUID GLASS TILE ===== */
 
 .glass-tile {
@@ -75,6 +113,152 @@ body {
     inset 0 -1px 0 rgba(255, 255, 255, 0.03);
 
   overflow: hidden;
+
+  /* ---- SparkJS-inspired reveal: start hidden ---- */
+  opacity: 0;
+  transform: scale(0.92);
+  filter: blur(8px);
+  transition: none;
+}
+
+/* Tile materialize — inspired by SparkJS "Spread" emergence */
+.glass-tile.revealed {
+  animation: tile-materialize 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes tile-materialize {
+  0% {
+    opacity: 0;
+    transform: scale(0.88);
+    filter: blur(10px);
+  }
+  40% {
+    opacity: 1;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* ---- Light sweep — inspired by SparkJS "Magic" glowing reveal edge ---- */
+.reveal-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    rgba(168, 216, 255, 0.18) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(147, 197, 253, 0.18) 55%,
+    transparent 65%,
+    transparent 100%
+  );
+  z-index: 5;
+}
+
+.glass-tile.revealed .reveal-sweep {
+  animation: light-sweep 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+@keyframes light-sweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* ---- Child element cascade — staggered SparkJS "Spread" entrance ---- */
+.reveal-item {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(4px);
+}
+
+.glass-tile.revealed .reveal-item {
+  animation: item-cascade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(0.25s + var(--reveal-i, 0) * 0.1s);
+}
+
+/* Name needs both the reveal cascade AND the ongoing gradient shift.
+   Uses a custom keyframe to merge blur→glow filter transition. */
+.glass-tile.revealed .name.reveal-item {
+  animation:
+    name-cascade 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards,
+    gradient-shift 8s ease 0.95s infinite;
+}
+
+@keyframes name-cascade {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  50% {
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: drop-shadow(0 2px 16px rgba(147, 197, 253, 0.35))
+            drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+  }
+}
+
+@keyframes item-cascade {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+  50% {
+    filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Individual logo pop-in within the prev-logos row */
+.prev-logo-link {
+  opacity: 0;
+  transform: scale(0.5);
+  display: inline-flex;
+  text-decoration: none;
+}
+
+.glass-tile.revealed .prev-logo-link {
+  animation: logo-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation-delay: calc(0.55s + var(--logo-i, 0) * 0.08s);
+}
+
+@keyframes logo-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Specular top-edge highlight — simulates light refracting at the glass edge */
@@ -141,20 +325,16 @@ body {
     #ffffff 0%,
     #a8d8ff 20%,
     #ffffff 40%,
-    #c4b5fd 60%,
+    #93c5fd 60%,
     #ffffff 80%,
-    #93c5fd 100%
+    #a8d8ff 100%
   );
   background-size: 300% 300%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
-  /* Soft glow behind the text */
-  filter: drop-shadow(0 2px 16px rgba(147, 197, 253, 0.35))
-          drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
-
-  animation: gradient-shift 8s ease infinite;
+  /* Soft glow applied after reveal — see name-cascade keyframe */
 }
 
 @keyframes gradient-shift {
@@ -190,12 +370,10 @@ body {
   object-fit: contain;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
   border-radius: 6px;
-  opacity: 0.7;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .current-logo:hover {
-  opacity: 1;
   transform: scale(1.08);
 }
 
@@ -223,61 +401,34 @@ body {
   width: auto;
   max-width: 100px;
   object-fit: contain;
-  opacity: 0.7;
   filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.12));
   border-radius: 4px;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
 .prev-logo:hover {
-  opacity: 1;
   transform: scale(1.08);
 }
 
-/* Contact row */
-.contact-row {
-  display: flex;
-  align-items: center;
-  gap: clamp(20px, 4vw, 36px);
-  justify-content: center;
-  margin-top: clamp(16px, 3vw, 28px);
-}
-
-.contact-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+/* Name link — wraps the h1 so the name is clickable */
+.name-link {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: clamp(11px, 1.3vw, 13px);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  opacity: 0.7;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
 }
 
-.contact-link:hover {
-  opacity: 1;
-  color: rgba(255, 255, 255, 0.9);
+/* Hover: glow intensifies, slight lift, gradient speeds up */
+.name-link:hover .name {
+  filter: drop-shadow(0 2px 24px rgba(147, 197, 253, 0.6))
+          drop-shadow(0 0 40px rgba(168, 216, 255, 0.35))
+          drop-shadow(0 1px 4px rgba(0, 0, 0, 0.2));
+  transform: translateY(-2px) scale(1.03);
+  animation-duration: 2s; /* Speed up the gradient on hover */
 }
 
-.contact-icon {
-  width: 15px;
-  height: 15px;
-  flex-shrink: 0;
-}
-
-.contact-icon-img {
-  width: 15px;
-  height: 15px;
-  object-fit: contain;
-  filter: brightness(2) grayscale(100%);
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-}
-
-.contact-link:hover .contact-icon-img {
-  opacity: 1;
+.name-link .name {
+  transition: filter 0.4s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -341,13 +492,4 @@ body {
     max-width: 80px;
   }
 
-  .contact-row {
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 18px;
-  }
-
-  .contact-link {
-    font-size: 12px;
-  }
 }
