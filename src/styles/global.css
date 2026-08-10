@@ -705,6 +705,21 @@ body {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
 }
 
+.exp-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.exp-role {
+  font-size: clamp(11px, 1.5vw, 13px);
+  font-weight: 500;
+  color: rgba(168, 216, 255, 0.65);
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
 /* Text wordmark headers for projects without a logo image */
 .exp-name.wordmark {
   font-weight: 700;

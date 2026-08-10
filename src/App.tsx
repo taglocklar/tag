@@ -58,55 +58,64 @@ const sideProjects = [
 const experiences = [
   {
     name: 'Meta',
+    role: 'Product Immersion Testing Specialist, New Products · 2025 – 2026',
     logo: metaLogo,
     url: 'https://www.meta.com/',
     bullets: [
-      'Pathfinding new agent-powered workflows and tools, partnering directly with Meta\'s Superintelligence labs',
-      'Won People\'s Choice Award at the 2025 Fall Global Hackathon',
-    ],
-  },
-  {
-    name: 'Servy',
-    logo: servyLogo,
-    url: 'https://servy.us/',
-    bullets: [
-      'Managed multiple product platform types and software that served users globally',
-      'Implemented AI QA processes, reducing time spent on QA by 75%',
+      'Designed and shipped LlamaMail, an AI inbox assistant that sorted 1M+ internal emails in two months and redirected $491K of operational time, deployed company-wide with Meta Superintelligence Labs',
+      'Won People\'s Choice at the 2025 Fall Global Hackathon',
+      'Built a Claude "Team Brain" that automated ~60% of New Product Test & Immersion workflows across Product, Engineering, and QA',
+      'Drove a direct roadmap change for Horizon Labs by pathfinding a new AI Orchestrator, and prototyped a game engine with Horizon Labs leads in Three.js',
     ],
   },
   {
     name: 'The Gear Room',
+    role: 'Digital Product Manager · 2024 – 2025',
     logo: gearroomLogo,
     url: 'https://thegearroom.com/',
     bullets: [
-      'Migrated The Gear Room from Ricochet to Shopify and designed and built their new e-commerce website',
-      'Built an internal hub that increased productivity by 60% at checkout by digitizing legacy workflows',
-      'Built a system for verifying invoices against products received, reducing inventory intake time by 50%',
+      'Built a new e-commerce platform with integrated inventory management, lifting checkout conversion 62%',
+      'Developed the internal web app that became the store\'s operational hub, raising front-desk productivity 53%',
+      'Automated invoice auditing on inventory receiving with Google Apps Script and a handheld scanner',
     ],
   },
   {
-    name: 'Millennium Film Journal',
-    logo: mfjLogo,
-    url: 'https://millenniumfilmjournal.com/',
+    name: 'Servy',
+    role: 'Manager, Product Delivery · 2021 – 2024',
+    logo: servyLogo,
+    url: 'https://servy.us/',
     bullets: [
-      'Helped save their site from hackers and implemented e-commerce and security functionality',
+      'Led development and on-time launch of Marketplace 3.0 across multiple international airports, managing cross-functional Dev, Design, and QA teams',
+      'Implemented automated QA with Testim.io, cutting regression testing time 72%',
+      'Promoted from Senior Analyst while translating between business and technical teams to prioritize work and hold timelines',
     ],
   },
   {
     name: 'Tap In',
+    role: 'Founder & iOS Developer · 2024',
     logo: tapinLogo,
     url: 'https://tapin.lol/',
     bullets: [
-      'Built and deployed my 2nd iOS application, built on GCP & SwiftUI — did everything',
+      'Solo-designed, built, and shipped a native iOS app to the App Store end to end on SwiftUI, Firebase, and Google Cloud',
     ],
   },
   {
-    name: 'socal — The Social Calendar',
+    name: 'socal · the social calendar',
+    role: 'Founder & iOS Developer · 2022 – 2024',
     logo: socalLogo,
     url: 'https://socal.day/',
     bullets: [
-      'Co-founded SoCal, built and deployed my 1st app idea on GCP & SwiftUI',
-      'Handled everything from marketing and design to code',
+      'Designed, built, and launched a native iOS social-calendar app to the App Store on SwiftUI, Firebase, and Google Cloud',
+      'Owned the product roadmap, user stories, and revenue model while building and leading a small core team',
+    ],
+  },
+  {
+    name: 'Millennium Film Journal',
+    role: 'Technical Consultant',
+    logo: mfjLogo,
+    url: 'https://millenniumfilmjournal.com/',
+    bullets: [
+      'Helped save their site from hackers and implemented e-commerce and security functionality',
     ],
   },
 ];
@@ -248,7 +257,10 @@ export default function App() {
                 <a href={exp.url} target="_blank" rel="noopener noreferrer" className="exp-logo-link">
                   <img src={exp.logo} alt={exp.name} className="exp-logo" />
                 </a>
-                <h2 className="exp-name">{exp.name}</h2>
+                <div className="exp-title-group">
+                  <h2 className="exp-name">{exp.name}</h2>
+                  <p className="exp-role">{exp.role}</p>
+                </div>
               </div>
               <ul className="exp-bullets">
                 {exp.bullets.map((bullet, j) => (
