@@ -5,20 +5,54 @@ import tapinLogo from './assets/tapinlogo.png';
 import gearroomLogo from './assets/gearroom.png';
 import mfjLogo from './assets/mfj.png';
 import socalLogo from './assets/socallogo.jpg';
+import weaveLogo from './assets/weave.png';
 import Skybox from './components/Skybox';
 
-const currentCompany = {
-  name: 'Meta',
-  logo: metaLogo,
-  url: 'https://www.meta.com/',
-};
-
 const previousCompanies = [
+  { name: 'Meta', logo: metaLogo, url: 'https://www.meta.com/' },
   { name: 'Tap In', logo: tapinLogo, url: 'https://tapin.lol/' },
   { name: 'Servy', logo: servyLogo, url: 'https://servy.us/' },
   { name: 'The Gear Room', logo: gearroomLogo, url: 'https://thegearroom.com/' },
   { name: 'MFJ', logo: mfjLogo, url: 'https://millenniumfilmjournal.com/' },
   { name: 'SoCal', logo: socalLogo, url: 'https://socal.day/' },
+];
+
+const sideProjects = [
+  {
+    name: 'weave',
+    logo: weaveLogo,
+    url: 'https://weav3.app/',
+    wordmark: false,
+    demoUrl: null as string | null,
+    demoLabel: '',
+    bullets: [
+      'A shared library where teams and their AI agents collect skills, learnings, and docs by project',
+      'Live at weav3.app with a deep MCP surface so agents can search, post, and follow up on each other\'s work',
+    ],
+  },
+  {
+    name: 'MYRIAD',
+    logo: null,
+    url: 'https://myriad-kappa.vercel.app/',
+    wordmark: true,
+    demoUrl: 'https://myriad-kappa.vercel.app/' as string | null,
+    demoLabel: 'play now',
+    bullets: [
+      'A top-down horde shooter built on a custom modular three.js engine with Rapier physics',
+      'GPU-driven death effects, dash movement, and round-based waves, every phase gated by headless smoke tests',
+    ],
+  },
+  {
+    name: 'TABULA',
+    logo: null,
+    url: 'https://tabula.wonderlandsoftware.cloud/',
+    wordmark: true,
+    demoUrl: 'https://tabula.wonderlandsoftware.cloud/',
+    demoLabel: 'play the demo',
+    bullets: [
+      'A whimsical multiplayer physics playground for you and your friends',
+    ],
+  },
 ];
 
 const experiences = [
@@ -101,7 +135,7 @@ export default function App() {
       { threshold: 0.15 }
     );
 
-    const cards = document.querySelectorAll('.exp-card');
+    const cards = document.querySelectorAll('.exp-card, .section-label');
     cards.forEach((card) => observer.observe(card));
 
     return () => observer.disconnect();
@@ -132,13 +166,9 @@ export default function App() {
               </a>
 
               <div className="currently reveal-item" style={{ '--reveal-i': 1 } as React.CSSProperties}>
-                <span className="currently-text">currently at</span>
-                <a href={currentCompany.url} target="_blank" rel="noopener noreferrer">
-                  <img
-                    src={currentCompany.logo}
-                    alt={currentCompany.name}
-                    className="current-logo"
-                  />
+                <span className="currently-text">currently building</span>
+                <a href="https://wonderland.software/" target="_blank" rel="noopener noreferrer" className="current-wordmark-link">
+                  <span className="current-wordmark">Wonderland Software</span>
                 </a>
               </div>
 
@@ -167,8 +197,47 @@ export default function App() {
           </div>
         </section>
 
+        {/* Side projects section */}
+        <section className="experience-section">
+          <p className="section-label">side projects</p>
+          {sideProjects.map((proj) => (
+            <div key={proj.name} className="exp-card">
+              <div className="exp-card-header">
+                {proj.logo && (
+                  proj.url ? (
+                    <a href={proj.url} target="_blank" rel="noopener noreferrer" className="exp-logo-link">
+                      <img src={proj.logo} alt={proj.name} className="exp-logo" />
+                    </a>
+                  ) : (
+                    <img src={proj.logo} alt={proj.name} className="exp-logo" />
+                  )
+                )}
+                {proj.url ? (
+                  <a href={proj.url} target="_blank" rel="noopener noreferrer" className="exp-name-link">
+                    <h2 className={`exp-name ${proj.wordmark ? 'wordmark' : ''}`}>{proj.name}</h2>
+                  </a>
+                ) : (
+                  <h2 className={`exp-name ${proj.wordmark ? 'wordmark' : ''}`}>{proj.name}</h2>
+                )}
+              </div>
+              <ul className="exp-bullets">
+                {proj.bullets.map((bullet, j) => (
+                  <li key={j} className="exp-bullet">{bullet}</li>
+                ))}
+              </ul>
+              {proj.demoUrl && (
+                <a href={proj.demoUrl} target="_blank" rel="noopener noreferrer" className="demo-link">
+                  {proj.demoLabel}
+                  <span className="demo-arrow">→</span>
+                </a>
+              )}
+            </div>
+          ))}
+        </section>
+
         {/* Experience section */}
         <section className="experience-section" ref={expSectionRef}>
+          <p className="section-label">experience</p>
           {experiences.map((exp, i) => (
             <div
               key={exp.name}

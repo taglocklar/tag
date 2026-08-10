@@ -453,6 +453,38 @@ body {
   transform: scale(1.08);
 }
 
+/* Currently building — Wonderland Software wordmark */
+.current-wordmark {
+  font-size: clamp(18px, 2.8vw, 26px);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #a8d8ff 40%,
+    #ffffff 70%,
+    #93c5fd 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 8s ease infinite;
+  filter: drop-shadow(0 1px 8px rgba(147, 197, 253, 0.25));
+  transition: filter 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+}
+
+.current-wordmark-link {
+  text-decoration: none;
+}
+
+.current-wordmark-link:hover .current-wordmark {
+  filter: drop-shadow(0 1px 16px rgba(147, 197, 253, 0.55));
+  transform: translateY(-1px) scale(1.03);
+  animation-duration: 2s;
+}
+
 /* Previous */
 .prev-label {
   font-size: clamp(11px, 1.4vw, 14px);
@@ -514,10 +546,38 @@ body {
   width: 100%;
   max-width: 680px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 32px) clamp(80px, 12vh, 160px);
+  padding: 0 clamp(16px, 4vw, 32px) clamp(40px, 6vh, 72px);
   display: flex;
   flex-direction: column;
   gap: clamp(20px, 3vw, 32px);
+}
+
+.scroll-content section:last-child {
+  padding-bottom: clamp(80px, 12vh, 160px);
+}
+
+/* Section label — echoes the hero's "previously" label */
+.section-label {
+  font-size: clamp(12px, 1.5vw, 15px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  padding-left: 4px;
+  margin-bottom: calc(-1 * clamp(8px, 1.5vw, 12px));
+
+  /* Scroll reveal — same treatment as cards */
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-label.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ===== EXPERIENCE CARD ===== */
@@ -643,6 +703,65 @@ body {
   color: rgba(255, 255, 255, 0.9);
   letter-spacing: -0.01em;
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Text wordmark headers for projects without a logo image */
+.exp-name.wordmark {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+}
+
+.exp-name-link {
+  text-decoration: none;
+}
+
+.exp-name-link:hover .exp-name {
+  color: rgba(168, 216, 255, 0.95);
+}
+
+/* Demo link — pill CTA */
+.demo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: clamp(14px, 2vw, 20px);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: clamp(12px, 1.6vw, 14px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.92);
+  background: linear-gradient(
+    165deg,
+    rgba(168, 216, 255, 0.18) 0%,
+    rgba(147, 197, 253, 0.08) 100%
+  );
+  border: 1px solid rgba(168, 216, 255, 0.35);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.demo-link:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(
+    165deg,
+    rgba(168, 216, 255, 0.28) 0%,
+    rgba(147, 197, 253, 0.14) 100%
+  );
+  border-color: rgba(168, 216, 255, 0.6);
+}
+
+.demo-arrow {
+  transition: transform 0.2s ease;
+}
+
+.demo-link:hover .demo-arrow {
+  transform: translateX(3px);
 }
 
 /* Bullet list */
