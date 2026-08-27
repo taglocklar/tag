@@ -175,10 +175,7 @@ export default function App() {
               </a>
 
               <div className="currently reveal-item" style={{ '--reveal-i': 1 } as React.CSSProperties}>
-                <span className="currently-text">currently building</span>
-                <a href="https://wonderland.software/" target="_blank" rel="noopener noreferrer" className="current-wordmark-link">
-                  <span className="current-wordmark">Wonderland Software</span>
-                </a>
+                <span className="currently-text">currently looking for new opportunities</span>
               </div>
 
               <p className="prev-label reveal-item" style={{ '--reveal-i': 2 } as React.CSSProperties}>previously</p>
